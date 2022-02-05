@@ -1,5 +1,10 @@
 require("@nomiclabs/hardhat-waffle");
+
 const projectId = '';
+const fs = require('fs');
+const accountKeyData = fs.readFileSync('./p-key.txt', {
+  encoding: 'utf-8', flag: 'r'
+});
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -12,11 +17,11 @@ module.exports = {
     },
     mumbai: {
       url: `${projectId}`,
-      accounts: []
+      accounts: [accountKeyData]
     },
-    mainnet: {
+    mainnet: { 
       url: `https://mainnet.infura.io/v3/${projectId}`,
-      accounts: []
+      accounts: [accountKeyData]
     }
   },
   solidity: {
