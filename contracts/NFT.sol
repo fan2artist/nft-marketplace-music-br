@@ -19,7 +19,7 @@ contract NFT is ERC721URIStorage {
 
     // constructor set up our address
     constructor(address marketplaceAddress)
-        ERC721("NFTMarketplaceMusic", "NFTMM")
+        ERC721("NFTMusicMarketplace", "NFTMM")
     {
         contractAddress = marketplaceAddress;
     }

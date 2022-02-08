@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/ERC721/Counters.sol";
 // security against transactions for multiple requests
 import "hardhat/console.sol";
 
-contract KBMarket is ReentrancyGuard {
+contract RMMarket is ReentrancyGuard {
     using Counters for Counters.Counter;
 
     /* numbers of items minting, number of transactions, tokens that have not been sold
@@ -67,7 +67,7 @@ contract KBMarket is ReentrancyGuard {
     // 1. Create a market item to put it up for sale
     // 2. Create a market sale for buying and selling between parties
 
-    function mintMarketItem(
+    function makeMarketItem(
         address nftContract,
         uint256 tokenId,
         uint256 price
