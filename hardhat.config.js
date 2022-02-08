@@ -16,7 +16,7 @@ module.exports = {
       chainId: 1337 // config standard
     },
     mumbai: {
-      url: `${projectId}`,
+      url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
       accounts: [accountKeyData]
     },
     mainnet: { 
@@ -27,7 +27,7 @@ module.exports = {
   solidity: {
     version: "0.8.4",
     settings: {
-      optimizsed: {
+      optimizer: {
         enabled: true,
         runs: 200
       }

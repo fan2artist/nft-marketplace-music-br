@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 // openzeppeling ERC721 NFT Functionality
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/ERC721/Counters.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
 // security against transactions for multiple requests
 import "hardhat/console.sol";
@@ -127,7 +127,7 @@ contract RMMarket is ReentrancyGuard {
         // transfer the token from contact address to the buyer
         IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
 
-        idToMarketToken[itemId].owner = payable(msdg.sender);
+        idToMarketToken[itemId].owner = payable(msg.sender);
         idToMarketToken[itemId].sold = true;
         _tokensSold.increment();
 
@@ -138,25 +138,25 @@ contract RMMarket is ReentrancyGuard {
     // Return the number of unsold items
 
     function fetchMarketTokens() public view returns (MarketToken[] memory) {
-        uint256 itemCount = _tokenIds.current();
-        uint256 unsoldItemsCount = _tokenIds.current() - _tokenSold.current();
+        uint256 itemsCount = _tokenIds.current();
+        uint256 unsoldItemsCount = _tokenIds.current() - _tokensSold.current();
         uint256 currentIndex = 0;
 
         // looping over the number of items created(if number has not been sold populate the array)
         MarketToken[] memory items = new MarketToken[](unsoldItemsCount);
         for (uint256 i = 0; i < itemsCount; i++) {
-            if (idToMarketCount[i + 1].owner == address(0)) {
+            if (idToMarketToken[i + 1].owner == address(0)) {
                 uint256 currentId = i + 1;
                 MarketToken storage currentItem = idToMarketToken[currentId];
-                items[currentIndex] = currenItem;
-                currentIdex += 1;
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
             }
         }
         return items;
     }
 
     function fetchMyNFTs() public view returns (MarketToken[] memory) {
-        uint256 totalItemCount = _tokensIds.current();
+        uint256 totalItemCount = _tokenIds.current();
 
         // a second counter for each individual user
         uint256 itemCount = 0;
@@ -170,12 +170,12 @@ contract RMMarket is ReentrancyGuard {
 
         // Amount you have purchased with itemcount
         // Check to see if the owner address is equal to msg.sender
-        MarkerToken[] memory items = new MarketToken[](itemCount);
+        MarketToken[] memory items = new MarketToken[](itemCount);
 
         for (uint256 i = 0; i < totalItemCount; i++) {
             if (idToMarketToken[i + 1].owner == msg.sender) {
                 uint256 currentId = idToMarketToken[i + 1].itemId;
-                MarkerToken storage currentItem = idToMarketToken[currentId];
+                MarketToken storage currentItem = idToMarketToken[currentId];
                 items[currentIndex] = currentItem;
                 currentIndex += 1;
             }
@@ -184,7 +184,7 @@ contract RMMarket is ReentrancyGuard {
     }
 
     // function for return an array of minted NFTs
-    function fetchItemsCreated() public view returns (MarkerToken[] memory) {
+    function fetchItemsCreated() public view returns (MarketToken[] memory) {
         // instead of .owner it will be the .seller
         uint256 totalItemCount = _tokenIds.current();
         uint256 itemCount = 0;
@@ -198,12 +198,12 @@ contract RMMarket is ReentrancyGuard {
 
         // Amount you have purchased with itemcount
         // Check to see if the seller address is equal to msg.sender
-        MarkerToken[] memory items = new MarketToken[](itemCount);
+        MarketToken[] memory items = new MarketToken[](itemCount);
 
         for (uint256 i = 0; i < totalItemCount; i++) {
             if (idToMarketToken[i + 1].seller == msg.sender) {
                 uint256 currentId = idToMarketToken[i + 1].itemId;
-                MarkerToken storage currentItem = idToMarketToken[currentId];
+                MarketToken storage currentItem = idToMarketToken[currentId];
                 items[currentIndex] = currentItem;
                 currentIndex += 1;
             }

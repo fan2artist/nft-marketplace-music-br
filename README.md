@@ -1,5 +1,7 @@
 # The Rising Club - Music NFT Marketplace
 
+NFT Community dedicated to rising musicians, artists, experts, and talented people all over the world.
+
 ### Stack
 
 - ethers: library to interact with the Ethereum blockchain network

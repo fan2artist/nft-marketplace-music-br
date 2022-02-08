@@ -18,21 +18,21 @@ describe("RMMarket", function () {
     let listingPrice = await market.getListingPrice()
     listingPrice = listingPrice.toString()
 
-    const auctionPrice = ethers.util.parseUnit('100', 'ether')
+    const auctionPrice = ethers.utils.parseUnits('100', 'ether')
     
     // test for mint
     await nft.mintToken('https-t1')
     await nft.mintToken('https-t2')
 
-    await market.makeMarkertItem(nftContactAddress, 1, auctionPrice, {value: listingPrice})
-    await market.makeMarkertItem(nftContactAddress, 2, auctionPrice, {value: listingPrice})
+    await market.makeMarketItem(nftContactAddress, 1, auctionPrice, {value: listingPrice})
+    await market.makeMarketItem(nftContactAddress, 2, auctionPrice, {value: listingPrice})
   
     // test for different addresses from different users - test accounts
     // return an array of however many addresses
     const [_, buyerAddress] = await ethers.getSigners()
 
     // create a market sale with address, id and price
-    await market.connect(buyerAddress).createMarketSale(nftContractAddress, 1, {
+    await market.connect(buyerAddress).createMarketSale(nftContactAddress, 1, {
       value: auctionPrice
     })
 
