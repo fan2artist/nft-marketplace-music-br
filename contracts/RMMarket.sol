@@ -137,7 +137,7 @@ contract RMMarket is ReentrancyGuard {
     // Function to fetchMarketItems - minting, buying and selling
     // Return the number of unsold items
 
-    function fetchMarketTokens() public view returns (MarketToken[] memory) {
+    function fetchMarketItems() public view returns (MarketToken[] memory) {
         uint256 itemsCount = _tokenIds.current();
         uint256 unsoldItemsCount = _tokenIds.current() - _tokensSold.current();
         uint256 currentIndex = 0;

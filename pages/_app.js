@@ -1,10 +1,11 @@
 import '../styles/globals.css'
+import './app.css'
 import Link from 'next/link'
 
 function TheRisingClubMusicNFTMarketplace({ Component, pageProps }){
   return (
     <div>
-      <nav className='border-b p-6' style={{backgroundColor: 'purple'}}>
+      <nav className='border-b p-6' style={{backgroundColor: 'blue'}}>
         <p className='text-4x1 font-bold text-white'>TheRisingClub</p>
         <div className='flex mt-4 justify-center'>
           <Link href='/'>
