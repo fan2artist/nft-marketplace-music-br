@@ -20,13 +20,16 @@ export default function Home() {
     // What we want to load: 
     // provider, tokenContract, marketContrat, data for our marketItems
 
+    console.log(nftaddress);
+    console.log(nftmarketaddress);
+    console.log(NFT.abi);
     const provider = new ethers.providers.JsonRpcProvider()
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, RMMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
 
     const items = await Promise.all(data.map(async i => {
-      const tokenUri = await tokenContract.tokenUri(i.tokenId)
+      const tokenUri = await tokenContract.tokenURI(i.tokenId)
       
       // Get the token metadata - json
       const meta = await axios.get(tokenUri)
@@ -43,8 +46,6 @@ export default function Home() {
     }))
     setNFTs(items)
     setLoadingState('loaded')
-
-
   }
 
   return (
