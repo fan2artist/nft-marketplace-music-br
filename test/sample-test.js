@@ -36,7 +36,7 @@ describe("RMMarket", function () {
       value: auctionPrice
     })
 
-    let items = await market.fetchMarketTokens()
+    let items = await market.fetchMarketItems()
 
     items = await Promise.all(items.map(async i => {
       // get the uri of the value
